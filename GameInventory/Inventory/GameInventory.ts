@@ -8,76 +8,70 @@ export class GameInventory {
   }
 
   updateQuality(): void {
-    for (let index = 0; index < this.items.length; index++) {
-      if (
-        !this.isBackstagePass(this.items[index].name ?? "") &&
-        !this.isAgedBrie(this.items[index].name ?? "")
+    this.items.forEach(item => this.updateItemQuality(item));
+  }
+
+  private updateItemQuality(item: Item): void {
+    if (
+        !this.isBackstagePass(item) &&
+        !this.isAgedBrie(item)
       ) {
-        if (
-          this.items[index].quality > 0 &&
-          !this.isSulfuras(this.items[index].name ?? "")
-        ) {
-          this.items[index].quality--;
+        if (item.quality > 0 && !this.isSulfuras(item)) {
+          item.quality--;
         }
+
       } else {
-        if (this.items[index].quality < 50) {
-          this.items[index].quality++;
-          if (
-           this.isBackstagePass(this.items[index].name ?? "")
-          ) {
+        if (item.quality < 50) {
+          item.quality++;
+          if (this.isBackstagePass(item)) {
             if (
-              this.items[index].sellIn < 11 &&
-              this.items[index].quality < 50
+              item.sellIn < 11 &&
+              item.quality < 50
             ) {
-              this.items[index].quality++;
+              item.quality++;
             }
             if (
-              this.items[index].sellIn < 6 &&
-              this.items[index].quality < 50
+              item.sellIn < 6 &&
+              item.quality < 50
             ) {
-              this.items[index].quality++;
+              item.quality++;
             }
           }
         }
       }
 
-      if (!this.isSulfuras(this.items[index].name ?? "")) {
-        this.items[index].sellIn--;
+      if (!this.isSulfuras(item)) {
+        item.sellIn--;
       }
 
-      if (this.items[index].sellIn < 0) {
-        if (!this.isAgedBrie(this.items[index].name ?? "")) {
+      if (item.sellIn < 0) {
+        if (!this.isAgedBrie(item)) {
           if (
-            !this.isBackstagePass(this.items[index].name ?? "")
+            !this.isBackstagePass(item)
           ) {
-            if (
-              this.items[index].quality > 0 &&
-              !this.isSulfuras(this.items[index].name ?? "")
-            ) {
-              this.items[index].quality--;
+            if (item.quality > 0 && !this.isSulfuras(item)) {
+              item.quality--;
             }
           } else {
-            this.items[index].quality =
-              this.items[index].quality - this.items[index].quality;
+            item.quality = item.quality - item.quality;
           }
         } else {
-          if (this.items[index].quality < 50) {
-            this.items[index].quality++;
+          if (item.quality < 50) {
+            item.quality++;
           }
         }
       }
-    }
   }
 
-  private isSulfuras(itemName: string): boolean {
-    return itemName === "Sulfuras, Hand of Ragnaros";
+  private isSulfuras(item: Item): boolean {
+    return item.name === "Sulfuras, Hand of Ragnaros";
   }
 
-  private isAgedBrie(itemName: string): boolean {
-    return itemName === "Aged Brie";
+  private isAgedBrie(item: Item): boolean {
+    return item.name === "Aged Brie";
   }
 
-  private isBackstagePass(itemName: string): boolean {
-    return itemName === "Backstage passes to a Pokemon Gym concert";
+  private isBackstagePass(item: Item): boolean {
+    return item.name === "Backstage passes to a Pokemon Gym concert";
   }
 }
