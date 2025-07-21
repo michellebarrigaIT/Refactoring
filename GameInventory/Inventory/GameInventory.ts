@@ -10,12 +10,12 @@ export class GameInventory {
   updateQuality(): void {
     for (let index = 0; index < this.items.length; index++) {
       if (
-        this.items[index].name !== "Aged Brie" &&
-        this.items[index].name !== "Backstage passes to a Pokemon Gym concert"
+        !this.isBackstagePass(this.items[index].name ?? "") &&
+        !this.isAgedBrie(this.items[index].name ?? "")
       ) {
         if (
           this.items[index].quality > 0 &&
-          this.items[index].name !== "Sulfuras, Hand of Ragnaros"
+          !this.isSulfuras(this.items[index].name ?? "")
         ) {
           this.items[index].quality--;
         }
@@ -23,8 +23,7 @@ export class GameInventory {
         if (this.items[index].quality < 50) {
           this.items[index].quality++;
           if (
-            this.items[index].name ===
-            "Backstage passes to a Pokemon Gym concert"
+           this.isBackstagePass(this.items[index].name ?? "")
           ) {
             if (
               this.items[index].sellIn < 11 &&
@@ -42,19 +41,18 @@ export class GameInventory {
         }
       }
 
-      if (this.items[index].name !== "Sulfuras, Hand of Ragnaros") {
+      if (!this.isSulfuras(this.items[index].name ?? "")) {
         this.items[index].sellIn--;
       }
 
       if (this.items[index].sellIn < 0) {
-        if (this.items[index].name !== "Aged Brie") {
+        if (!this.isAgedBrie(this.items[index].name ?? "")) {
           if (
-            this.items[index].name !==
-            "Backstage passes to a Pokemon Gym concert"
+            !this.isBackstagePass(this.items[index].name ?? "")
           ) {
             if (
               this.items[index].quality > 0 &&
-              this.items[index].name !== "Sulfuras, Hand of Ragnaros"
+              !this.isSulfuras(this.items[index].name ?? "")
             ) {
               this.items[index].quality--;
             }
@@ -69,5 +67,17 @@ export class GameInventory {
         }
       }
     }
+  }
+
+  private isSulfuras(itemName: string): boolean {
+    return itemName === "Sulfuras, Hand of Ragnaros";
+  }
+
+  private isAgedBrie(itemName: string): boolean {
+    return itemName === "Aged Brie";
+  }
+
+  private isBackstagePass(itemName: string): boolean {
+    return itemName === "Backstage passes to a Pokemon Gym concert";
   }
 }
