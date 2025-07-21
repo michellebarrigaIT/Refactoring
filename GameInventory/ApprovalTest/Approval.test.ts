@@ -24,4 +24,17 @@ describe("ApprovalTest", () => {
     expect(fullOutput).toContain("Sulfuras, Hand of Ragnaros");
 
   });
+
+  test("Output contains Conjured Mana Cake", () => {
+    const originalLog = console.log;
+    const output: string[] = [];
+    console.log = jest.fn((message: string) => output.push(message));
+
+    Program.main();
+
+    console.log = originalLog;
+
+    const fullOutput = output.join("\n");
+    expect(fullOutput).toContain("Conjured Mana Cake");
+  });
 });
