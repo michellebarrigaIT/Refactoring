@@ -6,7 +6,6 @@ import { BackstagePassStrategy } from "../strategies/BackstagePass.strategy";
 import { NormalItemStrategy } from "../strategies/NormalItem.strategy";
 import { SulfurasStrategy } from "../strategies/Sulfuras.strategy";
 
-
 export class ConcreteStrategyFactory implements StrategyFactory {
     getStrategy(item: Item): ItemStrategy {
         if (this.isAgedBrie(item)) {
