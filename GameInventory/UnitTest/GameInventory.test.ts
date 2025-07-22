@@ -49,7 +49,7 @@ describe("GameInventory", () => {
   });
   
   describe("Sulfuras", () => {
-    test("Never decreases quality or sellIn", () => {
+    test("Should Never decreases quality or sellIn", () => {
       const items: Item[] = [new Item("Sulfuras, Hand of Ragnaros", 10, 10)];
       const app = new GameInventory(items);
 
@@ -62,7 +62,7 @@ describe("GameInventory", () => {
   });
 
   describe("AgedBrie", () => {
-    test("Increases quality by 1 before sellIn <= 0", () => {
+    test("Should Increases quality by 1 before sellIn <= 0", () => {
       const items = [new Item("Aged Brie", 5, 7)];
       const app = new GameInventory(items);
 
@@ -72,7 +72,7 @@ describe("GameInventory", () => {
       expect(items[0].sellIn).toBe(4);
     });
 
-    test("Increases quality by 2 after sellIn < 0", () => {
+    test("Should Increases quality by 2 after sellIn < 0", () => {
       const items = [new Item("Aged Brie", 0, 48)];
       const app = new GameInventory(items);
 
@@ -82,7 +82,7 @@ describe("GameInventory", () => {
       expect(items[0].sellIn).toBe(-1);
     });
 
-    test("Quality never exceeds 50", () => {
+    test("Should Quality never exceeds 50", () => {
       const items = [new Item("Aged Brie", 5, 50)];
       const app = new GameInventory(items);
 
@@ -92,7 +92,7 @@ describe("GameInventory", () => {
     });
   });
   describe("Foo", () => {
-    test("Degrade quality by 1 before sellIn <= 0", () => {
+    test("Should Degrade quality by 1 before sellIn <= 0", () => {
       const items: Item[] = [new Item("foo", 0, 0)];
       const app = new GameInventory(items);
 
@@ -103,7 +103,7 @@ describe("GameInventory", () => {
       expect(items[0].sellIn).toBe(-1);
     });
 
-    test("degrade quality by 2 after sellIn < 0", () => {
+    test("Should degrade quality by 2 after sellIn < 0", () => {
       const items = [new Item("+5 Dexterity Vest", 0, 10)];
       const app = new GameInventory(items);
 
@@ -113,7 +113,7 @@ describe("GameInventory", () => {
       expect(items[0].sellIn).toBe(-1);
     });
 
-    test("quality never negative", () => {
+    test("Should quality never negative", () => {
       const items = [new Item("foo", 0, 0)];
       const app = new GameInventory(items);
 
